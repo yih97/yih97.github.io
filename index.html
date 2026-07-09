@@ -381,7 +381,7 @@
           </div>
           <div class="info-row">
             <span class="info-k">총 경력</span>
-            <span class="info-v">2년 4개월 (2024.02 ~)</span>
+            <span class="info-v" id="career-duration">2년 4개월 (2024.02 ~)</span>
           </div>
           <div class="info-row">
             <span class="info-k">전문 분야</span>
@@ -654,6 +654,17 @@
       a.style.color = (a.getAttribute('href') === '#' + current) ? 'var(--txt1)' : '';
     });
   });
+
+  // 총 경력 자동 계산 (시작: 2024년 2월)
+  (function() {
+    const start = new Date(2024, 1, 1);
+    const now = new Date();
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    if (months < 0) { years--; months += 12; }
+    const text = (years > 0 ? years + '년 ' : '') + months + '개월 (2024.02 ~)';
+    document.getElementById('career-duration').textContent = text;
+  })();
 </script>
 </body>
 </html>
