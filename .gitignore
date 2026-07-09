@@ -1,0 +1,11 @@
+﻿# 개인 메모 파일 (공개 금지)
+CLAUDE.local.md
+
+# 이미지 파일
+*.jpg
+*.jpeg
+*.png
+
+# Claude 설정 디렉토리
+.claude/
+

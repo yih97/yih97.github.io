@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Yoon Lee Hyun — AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #07080F;
+      --bg2:     #0D0F1C;
+      --bg3:     #131626;
+      --border:  #1C2038;
+      --p:       #8B7CF6;
+      --p-dim:   rgba(139,124,246,0.15);
+      --p-glow:  rgba(139,124,246,0.35);
+      --g:       #10D9A8;
+      --g-dim:   rgba(16,217,168,0.12);
+      --txt1:    #EEEEF5;
+      --txt2:    #8890AA;
+      --txt3:    #474F6A;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--txt1);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 400;
+      line-height: 1.7;
+      overflow-x: hidden;
+    }
+
+    /* ─── NAV ─── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      padding: 18px 52px;
+      display: flex; justify-content: space-between; align-items: center;
+      background: rgba(7,8,15,0.80);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+      transition: background 0.3s;
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px; font-weight: 700; letter-spacing: -0.3px;
+      color: var(--txt1);
+    }
+    .nav-logo em { color: var(--p); font-style: normal; }
+    nav ul { list-style:none; display:flex; gap:36px; }
+    nav a {
+      color: var(--txt2); text-decoration:none;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 13px; font-weight: 500; letter-spacing: 0.03em;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--txt1); }
+
+    /* ─── HERO ─── */
+    #hero {
+      min-height: 100vh;
+      display: flex; flex-direction: column; justify-content: center;
+      padding: 0 52px 80px;
+      position: relative; overflow: hidden;
+    }
+    .hero-radial {
+      position: absolute; inset: 0; pointer-events: none;
+      background:
+        radial-gradient(ellipse 55% 55% at 25% 45%, rgba(139,124,246,0.13) 0%, transparent 65%),
+        radial-gradient(ellipse 35% 35% at 75% 65%, rgba(16,217,168,0.07) 0%, transparent 60%);
+    }
+    .hero-content { position:relative; z-index:1; max-width:820px; }
+    .eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px; font-weight: 600;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--p); margin-bottom: 28px;
+      display: flex; align-items: center; gap: 12px;
+    }
+    .eyebrow::before {
+      content:''; display:block; width:30px; height:1px; background:var(--p);
+    }
+    .hero-name {
+      font-family: 'Noto Sans KR', sans-serif;
+      font-size: clamp(60px,9vw,108px); font-weight: 900;
+      line-height: 1; letter-spacing: -3px;
+      margin-bottom: 6px;
+    }
+    .hero-name-en {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(22px,3vw,32px); font-weight: 400;
+      color: var(--txt2); letter-spacing: -0.3px;
+      margin-bottom: 24px;
+    }
+    .hero-tagline {
+      font-size: 16px; color: var(--txt2);
+      border-left: 2px solid var(--p); padding-left: 16px;
+      margin-bottom: 16px; line-height: 1.5;
+    }
+    .hero-sub {
+      font-size: 14px; color: var(--txt3); margin-bottom: 44px;
+    }
+    .cta-row { display:flex; gap:14px; flex-wrap:wrap; }
+    .btn-primary {
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 13px 26px;
+      background: var(--p); color: #fff;
+      font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:600;
+      letter-spacing:0.04em; text-decoration:none; border-radius:4px;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity:0.85; transform:translateY(-1px); }
+    .btn-outline {
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 13px 26px;
+      border: 1px solid var(--border); color: var(--txt2);
+      font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:500;
+      letter-spacing:0.04em; text-decoration:none; border-radius:4px;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-outline:hover { border-color: var(--p); color: var(--txt1); }
+
+    /* waveform */
+    .waveform-wrap {
+      position: absolute; bottom:0; left:0; right:0;
+      height:72px; overflow:hidden;
+      display:flex; align-items:flex-end; gap:2px;
+      padding: 0 52px;
+      opacity:0.18; pointer-events:none;
+    }
+    .wb {
+      flex:1; max-width:7px; border-radius:2px 2px 0 0;
+      background: linear-gradient(to top, var(--p), var(--g));
+      animation: pulse var(--dur, 1.8s) ease-in-out infinite;
+      animation-delay: var(--del, 0s);
+    }
+    @keyframes pulse {
+      0%,100% { transform:scaleY(0.25); }
+      50%      { transform:scaleY(1); }
+    }
+
+    /* ─── SECTION COMMON ─── */
+    .wrap { max-width:1080px; margin:0 auto; padding:0 52px; }
+    .sec { padding:100px 0; }
+    .sec-full { padding:100px 0; background:var(--bg2); }
+    .sec-label {
+      font-family:'Space Grotesk',sans-serif; font-size:11px;
+      font-weight:600; letter-spacing:0.15em; text-transform:uppercase;
+      color:var(--p); margin-bottom:10px;
+    }
+    .sec-title {
+      font-family:'Space Grotesk',sans-serif;
+      font-size:clamp(26px,3.5vw,38px); font-weight:700;
+      letter-spacing:-0.5px; margin-bottom:52px;
+    }
+
+    /* ─── ABOUT ─── */
+    .about-grid {
+      display:grid; grid-template-columns:1.6fr 1fr;
+      gap:72px; align-items:start;
+    }
+    .about-quote {
+      font-size:clamp(20px,2.5vw,26px); font-weight:700;
+      line-height:1.35; margin-bottom:28px;
+      position:relative; padding-left:0;
+    }
+    .about-quote::after {
+      content:''; display:block; width:40px; height:2px;
+      background:var(--p); margin-top:20px;
+    }
+    .about-body { font-size:15px; color:var(--txt2); line-height:1.85; }
+    .about-body p + p { margin-top:14px; }
+    .about-body strong { color:var(--txt1); font-weight:500; }
+    .info-list { border-top:1px solid var(--border); }
+    .info-row {
+      display:flex; flex-direction:column; padding:18px 0;
+      border-bottom:1px solid var(--border);
+    }
+    .info-k {
+      font-family:'Space Grotesk',sans-serif; font-size:10px;
+      font-weight:600; letter-spacing:0.12em; text-transform:uppercase;
+      color:var(--txt3); margin-bottom:5px;
+    }
+    .info-v { font-size:14px; color:var(--txt2); }
+
+    /* ─── SKILLS ─── */
+    .skills-stack { display:flex; flex-direction:column; gap:36px; }
+    .sg-label {
+      font-family:'Space Grotesk',sans-serif; font-size:11px;
+      font-weight:600; letter-spacing:0.1em; text-transform:uppercase;
+      color:var(--txt3); margin-bottom:14px;
+    }
+    .chips { display:flex; flex-wrap:wrap; gap:10px; }
+    .chip {
+      padding:7px 16px; border-radius:100px;
+      font-family:'Space Grotesk',sans-serif; font-size:13px; font-weight:500;
+      border:1px solid; cursor:default; transition:transform 0.15s;
+    }
+    .chip:hover { transform:translateY(-1px); }
+    .chip.c1 { background:var(--p-dim); border-color:var(--p-glow); color:#C4BAFD; }
+    .chip.c2 { background:var(--g-dim); border-color:rgba(16,217,168,0.3); color:#5EF0CF; }
+    .chip.c3 { background:rgba(255,255,255,0.03); border-color:var(--border); color:var(--txt2); }
+
+    /* ─── TIMELINE ─── */
+    .timeline { position:relative; padding-left:28px; }
+    .timeline::before {
+      content:''; position:absolute; left:0; top:10px; bottom:40px; width:1px;
+      background:linear-gradient(to bottom, var(--p) 0%, var(--border) 70%, transparent 100%);
+    }
+    .tl-item { position:relative; padding:0 0 56px 44px; }
+    .tl-item::before {
+      content:''; position:absolute; left:-4px; top:10px;
+      width:9px; height:9px; border-radius:50%;
+      background:var(--bg3); border:2px solid var(--p);
+      box-shadow:0 0 0 3px var(--bg);
+    }
+    .tl-item.active::before {
+      background:var(--g); border-color:var(--g);
+      box-shadow:0 0 0 3px var(--bg), 0 0 10px rgba(16,217,168,0.5);
+    }
+    .tl-head {
+      display:flex; align-items:flex-start;
+      justify-content:space-between; flex-wrap:wrap;
+      gap:8px; margin-bottom:4px;
+    }
+    .tl-co {
+      font-family:'Space Grotesk',sans-serif;
+      font-size:16px; font-weight:600; color:var(--txt1);
+    }
+    .tl-badge {
+      font-family:'Space Grotesk',sans-serif; font-size:11px;
+      font-weight:500; color:var(--txt3);
+      padding:4px 11px; border-radius:100px;
+      border:1px solid var(--border); background:var(--bg3);
+      white-space:nowrap;
+    }
+    .tl-badge.live {
+      color:var(--g); border-color:rgba(16,217,168,0.3);
+      background:var(--g-dim);
+    }
+    .tl-proj { font-size:13px; color:var(--p); font-weight:500; margin-bottom:14px; }
+    .tl-ul { list-style:none; display:flex; flex-direction:column; gap:7px; }
+    .tl-ul li {
+      font-size:14px; color:var(--txt2);
+      padding-left:18px; position:relative; line-height:1.6;
+    }
+    .tl-ul li::before {
+      content:'–'; position:absolute; left:0;
+      color:var(--txt3); font-size:12px; top:1px;
+    }
+    .tl-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:16px; }
+    .ttag {
+      font-family:'Space Grotesk',sans-serif; font-size:11px;
+      font-weight:500; padding:3px 10px;
+      background:var(--bg3); border:1px solid var(--border);
+      border-radius:4px; color:var(--txt3);
+    }
+
+    /* ─── PROJECT CARDS ─── */
+    .cards { display:grid; grid-template-columns:repeat(2,1fr); gap:18px; }
+    .card {
+      background:var(--bg3); border:1px solid var(--border);
+      border-radius:8px; padding:28px 26px;
+      transition:border-color 0.2s, transform 0.2s;
+    }
+    .card:hover { border-color:var(--p); transform:translateY(-2px); }
+    .card-num {
+      font-family:'Space Grotesk',sans-serif; font-size:11px;
+      color:var(--txt3); font-weight:600; letter-spacing:0.1em;
+      margin-bottom:12px;
+    }
+    .card-title {
+      font-family:'Space Grotesk',sans-serif;
+      font-size:16px; font-weight:600; color:var(--txt1);
+      margin-bottom:10px; line-height:1.3;
+    }
+    .card-desc { font-size:13px; color:var(--txt2); line-height:1.75; margin-bottom:16px; }
+    .card-chips { display:flex; flex-wrap:wrap; gap:7px; }
+    .card-chip {
+      font-family:'Space Grotesk',sans-serif; font-size:11px; font-weight:500;
+      padding:3px 10px; border-radius:100px;
+      background:var(--p-dim); border:1px solid var(--p-glow); color:#C4BAFD;
+    }
+
+    /* ─── VISION ─── */
+    .vision-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .v-card {
+      background:var(--bg3); border:1px solid var(--border);
+      border-radius:8px; padding:28px 24px;
+    }
+    .v-icon { font-size:22px; margin-bottom:14px; }
+    .v-title {
+      font-family:'Space Grotesk',sans-serif;
+      font-size:14px; font-weight:600; color:var(--txt1); margin-bottom:8px;
+    }
+    .v-desc { font-size:13px; color:var(--txt2); line-height:1.7; }
+
+    /* ─── FOOTER ─── */
+    footer {
+      padding:60px 52px 48px;
+      border-top:1px solid var(--border);
+      text-align:center;
+    }
+    .ft-name {
+      font-family:'Space Grotesk',sans-serif;
+      font-size:22px; font-weight:700; color:var(--txt1); margin-bottom:6px;
+    }
+    .ft-role { font-size:14px; color:var(--txt3); margin-bottom:28px; }
+    .ft-stack { font-size:12px; color:var(--txt3); }
+    .ft-stack span { color:var(--p); margin:0 4px; }
+
+    /* ─── FADE-IN ─── */
+    .fade { opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease; }
+    .fade.visible { opacity:1; transform:translateY(0); }
+
+    /* ─── RESPONSIVE ─── */
+    @media(max-width:768px){
+      nav { padding:16px 24px; }
+      nav ul { display:none; }
+      #hero { padding:0 24px 70px; }
+      .wrap { padding:0 24px; }
+      .sec, .sec-full { padding:72px 0; }
+      .about-grid { grid-template-columns:1fr; gap:40px; }
+      .cards { grid-template-columns:1fr; }
+      .vision-grid { grid-template-columns:1fr; }
+      .hero-name { font-size:52px; letter-spacing:-2px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Port<em>folio</em></div>
+  <ul>
+    <li><a href="#about">소개</a></li>
+    <li><a href="#skills">기술</a></li>
+    <li><a href="#career">경력</a></li>
+  </ul>
+</nav>
+
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-radial"></div>
+  <div class="hero-content">
+    <div class="eyebrow">AI Engineer · LLM Agent · Multi-Agent System</div>
+    <h1 class="hero-name">윤이현</h1>
+    <p class="hero-name-en">Yoon Lee Hyun</p>
+    <p class="hero-tagline">AI 에이전트 설계부터 서비스 적용까지</p>
+    <p class="hero-sub">Python · LangGraph · FastAPI · MCP · Vector DB</p>
+    <div class="cta-row">
+      <a href="#career" class="btn-primary">경력 보기 →</a>
+      <a href="#skills" class="btn-outline">기술 스택</a>
+    </div>
+  </div>
+  <div class="waveform-wrap" id="waveform"></div>
+</section>
+
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="wrap sec fade">
+    <div class="sec-label">About</div>
+    <h2 class="sec-title">소개</h2>
+    <div class="about-grid">
+      <div>
+        <div class="about-quote">한 명 더 있었으면 하는 엔지니어</div>
+        <div class="about-body">
+          <p>Python과 LangGraph를 기반으로 Gen SQL, RAG, VOC 자동화, 업무 에이전트까지 다양한 도메인에서 LLM 에이전트를 실무에 적용해왔습니다. 금융·전자·컨설팅 등 여러 산업 현장에서 <strong>AI를 추가 도구가 아닌 업무의 기본 인터페이스</strong>로 만드는 작업을 해왔습니다.</p>
+          <p>모르는 기술 앞에서 멈추지 않습니다. 새로운 스택이 등장하면 먼저 학습하고, 배운 것은 반드시 실무에서 검증합니다. 그 반복이 지금의 커리어를 만들었습니다.</p>
+        </div>
+      </div>
+      <div>
+        <div class="info-list">
+          <div class="info-row">
+            <span class="info-k">학력</span>
+            <span class="info-v">한양대학교 석사 · 인공지능 시스템학과 (2026.08 졸업 예정)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">총 경력</span>
+            <span class="info-v">2년 4개월 (2024.02 ~)</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">전문 분야</span>
+            <span class="info-v">LLM 에이전트 설계 · 업무 자동화</span>
+          </div>
+          <div class="info-row">
+            <span class="info-k">레퍼런스</span>
+            <span class="info-v">KB국민은행 · KB국민카드 · LG전자</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- SKILLS -->
+<div id="skills" class="sec-full">
+  <div class="wrap fade">
+    <div class="sec-label">Skills</div>
+    <h2 class="sec-title">기술 스택</h2>
+    <div class="skills-stack">
+      <div>
+        <div class="sg-label">Core — 전 프로젝트 공통</div>
+        <div class="chips">
+          <span class="chip c1">Python</span>
+          <span class="chip c1">LangGraph</span>
+        </div>
+      </div>
+      <div>
+        <div class="sg-label">AI / LLM</div>
+        <div class="chips">
+          <span class="chip c2">LLM Agent</span>
+          <span class="chip c2">RAG</span>
+          <span class="chip c2">MCP</span>
+          <span class="chip c2">Prompt Engineering</span>
+          <span class="chip c2">Tool Calling</span>
+          <span class="chip c2">Multi-Agent Architecture</span>
+          <span class="chip c2">Azure OpenAI</span>
+          <span class="chip c2">Diffusion Model</span>
+          <span class="chip c2">LoRA Fine-tuning</span>
+        </div>
+      </div>
+      <div>
+        <div class="sg-label">Backend / Data</div>
+        <div class="chips">
+          <span class="chip c3">FastAPI</span>
+          <span class="chip c3">Vector DB</span>
+          <span class="chip c3">Snowflake</span>
+          <span class="chip c3">Redis</span>
+          <span class="chip c3">SQL</span>
+          <span class="chip c3">BeautifulSoup</span>
+          <span class="chip c3">Selenium</span>
+        </div>
+      </div>
+      <div>
+        <div class="sg-label">Frontend / Other</div>
+        <div class="chips">
+          <span class="chip c3">React</span>
+          <span class="chip c3">JavaScript</span>
+          <span class="chip c3">Spring</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- CAREER -->
+<section id="career">
+  <div class="wrap sec fade">
+    <div class="sec-label">Career</div>
+    <h2 class="sec-title">경력</h2>
+    <div class="timeline">
+
+      <div class="tl-item active">
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">KB 국민카드</div>
+            <div class="tl-proj">Snowflake 기반 Text to SQL 에이전트 구축</div>
+          </div>
+          <span class="tl-badge live">2026.05 ~ 현재 · 진행 중</span>
+        </div>
+        <ul class="tl-ul">
+          <li>Cortex Analyst 기반 자연어 SQL 자동 생성 및 단계별 쿼리 워크플로우 설계</li>
+          <li>라우팅 에이전트 기반 도메인별 분산 처리 및 MCP 기반 에이전트 간 호출 설계</li>
+          <li>PII 보호 데이터 마스킹 정책 적용을 통한 보안 및 안정성 확보</li>
+          <li>FastAPI 기반 멀티턴 대화 세션 관리 및 대화 히스토리 처리 백엔드 구축</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">Python</span><span class="ttag">FastAPI</span>
+          <span class="ttag">Snowflake</span><span class="ttag">MCP</span>
+          <span class="ttag">LangGraph</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">파인트리파트너스 (사내)</div>
+            <div class="tl-proj">사내 업무 자동화 솔루션 개발</div>
+          </div>
+          <span class="tl-badge">2026.03 ~ 2026.04 · 2개월</span>
+        </div>
+        <ul class="tl-ul">
+          <li>법인카드 메일 자동화 및 카드 사용 내역 수집·분석 에이전트 개발</li>
+          <li>사내 데이터 연동 질의응답 에이전트 및 React 기반 UI 설계·개발</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">Python</span><span class="ttag">React</span>
+          <span class="ttag">LangGraph</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">LG 전자</div>
+            <div class="tl-proj">Winning Tech Agent — 기술 전략 분석</div>
+          </div>
+          <span class="tl-badge">2026.01 ~ 2026.02 · 2개월</span>
+        </div>
+        <ul class="tl-ul">
+          <li>ArXiv·IEEE 등 글로벌 학술 DB 연동 실시간 논문 수집 엔진 개발</li>
+          <li>논문 PDF 텍스트 청킹·임베딩 및 의미론적 검색용 Vector DB 적재 자동화</li>
+          <li>논문 인용 관계·공동 저자 네트워크 분석 및 기술 트렌드 시계열 감지 API 개발</li>
+          <li>논문 요약 기술 로드맵 생성 에이전트 및 출처 검증 시스템 개발</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">Python</span><span class="ttag">FastAPI</span>
+          <span class="ttag">LangGraph</span><span class="ttag">Vector DB</span>
+          <span class="ttag">Redis</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">KB 국민은행</div>
+            <div class="tl-proj">고객경험 관리 에이전트 — VOC 자동화</div>
+          </div>
+          <span class="tl-badge">2025.10 ~ 2026.01 · 4개월</span>
+        </div>
+        <ul class="tl-ul">
+          <li>VOC 감정 분석·우선순위 판단 기반 처리 부서 자동 배분 시스템 구축</li>
+          <li>키워드·개체어 추출 및 검토 의견 작성 자동화로 VOC 검토 지원</li>
+          <li>VOC 유형·처리 상태 분석 기반 고객 특성 맞춤 개인화 피드백 자동 생성</li>
+          <li>반복 VOC 패턴 자동 감지로 단기·장기 개선 과제 도출 및 관리 효율화</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">Azure OpenAI</span><span class="ttag">MCP</span>
+          <span class="ttag">SQL</span><span class="ttag">Python</span>
+          <span class="ttag">LangGraph</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">파인트리파트너스 (사내)</div>
+            <div class="tl-proj">Aimond AI Suite — Gen SQL & RAG</div>
+          </div>
+          <span class="tl-badge">2025.05 ~ 2025.09 · 5개월</span>
+        </div>
+        <ul class="tl-ul">
+          <li>자연어 SQL 자동 생성 에이전트 개발 및 다중 DB 연동·쿼리 최적화</li>
+          <li>벡터 DB 기반 의미론적 검색 및 문서 응답 생성 RAG 파이프라인 구축</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">Python</span><span class="ttag">LangGraph</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">주식회사 폼즈</div>
+            <div class="tl-proj">자영업자들을 위한 ERP 시스템</div>
+          </div>
+          <span class="tl-badge">2024.12 ~ 2025.04 · 5개월</span>
+        </div>
+        <ul class="tl-ul">
+          <li>React·Spring 풀스택 기반 자영업자 매출·재고 관리 웹 서비스 설계 및 개발</li>
+          <li>Python 웹 스크래핑 자동화로 멀티소스 데이터 수집·정제 시스템 구축</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">React</span><span class="ttag">JavaScript</span>
+          <span class="ttag">Spring</span><span class="ttag">Python</span>
+          <span class="ttag">BeautifulSoup</span><span class="ttag">Selenium</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-head">
+          <div>
+            <div class="tl-co">주식회사 폼즈</div>
+            <div class="tl-proj">snapfroms</div>
+          </div>
+          <span class="tl-badge">2024.02 ~ 2024.12 · 11개월</span>
+        </div>
+        <ul class="tl-ul">
+          <li>Diffusion Model 기반 이미지 생성·편집 자동화 파이프라인 구축 및 서비스 개발</li>
+          <li>LoRA 기반 파인튜닝 시스템으로 다중 도메인 빠른 적응 및 학습 효율 개선</li>
+        </ul>
+        <div class="tl-tags">
+          <span class="ttag">Python</span><span class="ttag">Diffusion Model</span>
+          <span class="ttag">LoRA</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+
+
+
+<!-- VISION -->
+<section>
+  <div class="wrap sec fade">
+    <div class="sec-label">Vision</div>
+    <h2 class="sec-title">향후 방향</h2>
+    <div class="vision-grid">
+      <div class="v-card">
+        <div class="v-icon">🤖</div>
+        <div class="v-title">AI를 업무의 기본 인터페이스로</div>
+        <div class="v-desc">AI를 '추가 도구'가 아닌 업무 흐름 자체로 녹이는 설계를 지향합니다. 에이전트가 사람의 반복 업무를 대신하는 수준을 넘어, 조직 전체의 속도를 높이는 구조를 만들고자 합니다.</div>
+      </div>
+      <div class="v-card">
+        <div class="v-icon">🎵</div>
+        <div class="v-title">엔터테인먼트 × AI 시너지</div>
+        <div class="v-desc">음악을 듣고 공연 문화를 즐기는 시각으로, 엔터테인먼트 산업의 워크플로우와 데이터를 AI와 연결하는 새로운 가치를 만들어가고 싶습니다.</div>
+      </div>
+      <div class="v-card">
+        <div class="v-icon">⚡</div>
+        <div class="v-title">빠른 실행, 지속적 개선</div>
+        <div class="v-desc">모델 파이프라인 구축부터 LLM 에이전트 설계까지, 실무에서 검증된 경험을 바탕으로 새로운 도메인에서도 빠르게 학습하고 실행하는 엔지니어가 되겠습니다.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
+  <div class="ft-name">윤이현 · Yoon Lee Hyun</div>
+  <div class="ft-role">AI Engineer · LLM Agent · Multi-Agent System</div>
+  <div class="ft-stack">
+    <span>Python</span>·<span>LangGraph</span>·<span>FastAPI</span>·<span>MCP</span>·<span>Vector DB</span>
+  </div>
+</footer>
+
+
+<script>
+  // Waveform bars
+  const wf = document.getElementById('waveform');
+  for (let i = 0; i < 90; i++) {
+    const b = document.createElement('div');
+    b.className = 'wb';
+    const h = 8 + Math.random() * 52;
+    b.style.height = h + 'px';
+    b.style.setProperty('--dur', (1.0 + Math.random() * 1.4) + 's');
+    b.style.setProperty('--del', (Math.random() * 2.5) + 's');
+    // slight color variation
+    if (Math.random() > 0.75) {
+      b.style.background = 'var(--g)';
+      b.style.opacity = '0.6';
+    }
+    wf.appendChild(b);
+  }
+
+  // Scroll fade-in
+  const fades = document.querySelectorAll('.fade');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.08 });
+  fades.forEach(el => io.observe(el));
+
+  // Nav active highlight
+  const navLinks = document.querySelectorAll('nav a');
+  const anchors = ['about','skills','career','projects'];
+  window.addEventListener('scroll', () => {
+    let current = '';
+    anchors.forEach(id => {
+      const el = document.getElementById(id);
+      if (el && window.scrollY >= el.offsetTop - 120) current = id;
+    });
+    navLinks.forEach(a => {
+      a.style.color = (a.getAttribute('href') === '#' + current) ? 'var(--txt1)' : '';
+    });
+  });
+</script>
+</body>
+</html>
