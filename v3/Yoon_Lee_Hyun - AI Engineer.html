@@ -4,8 +4,131 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Yoon Lee Hyun — AI Engineer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&family=Dancing+Script:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg:      #F6F1EA;
+      --card:    #EFEAE2;
+      --border:  #E3DCD1;
+      --burg:    #8A4A50;
+      --burg-bg1: #EFDEDD;
+      --burg-tx1: #7A3B3B;
+      --neu-bg:  #EAE5DC;
+      --neu-tx:  #5C574F;
+      --txt1:    #332E2A;
+      --txt2:    #7A756E;
+      --txt3:    #B0A99E;
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--txt1);
+      font-family: 'Noto Sans KR', sans-serif;
+      font-weight: 400;
+      overflow-x: hidden;
+    }
+
+    .slide {
+      min-height: 100vh;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 0 64px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* ─── SLIDE 1: COVER ─── */
+    .eyebrow {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px; font-weight: 500;
+      letter-spacing: 0.1em;
+      color: var(--burg);
+      margin-bottom: 24px;
+    }
+    .name-script {
+      font-family: 'Dancing Script', cursive;
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 700;
+      font-style: italic;
+      transform: skewX(-6deg);
+      display: inline-block;
+      color: var(--txt1);
+      line-height: 1;
+      margin-bottom: 28px;
+    }
+    .badge-row { display: flex; gap: 10px; flex-wrap: wrap; }
+    .badge {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px; font-weight: 500;
+      padding: 7px 16px;
+      border-radius: 100px;
+      background: var(--neu-bg);
+      color: var(--neu-tx);
+    }
+    .badge.accent {
+      background: var(--burg-bg1);
+      color: var(--burg-tx1);
+    }
+    .wordmark-row {
+      margin-top: 36px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .wordmark-line { width: 24px; height: 2px; background: var(--burg); }
+    .wordmark-text {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px; color: var(--txt3);
+    }
+    .page-nav {
+      position: absolute; bottom: 28px; right: 40px;
+      display: flex; align-items: center; gap: 10px;
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 12px; color: var(--txt3);
+    }
+    .page-nav .next { color: var(--burg); font-weight: 500; }
+
+    @media(max-width:640px){
+      .slide { padding: 0 28px; }
+      .page-nav { right: 28px; }
+    }
+  </style>
 </head>
 <body>
 
+<!-- SLIDE 1: COVER -->
+<section class="slide" id="slide-cover">
+  <div class="eyebrow">AI Engineer · LLM Agent · Multi-Agent System</div>
+  <div class="name-script">Yoon Lee Hyun</div>
+  <div class="badge-row">
+    <span class="badge accent" id="career-duration">경력 2년 6개월</span>
+    <span class="badge">LLM 에이전트 설계</span>
+    <span class="badge">Python · LangGraph · FastAPI</span>
+  </div>
+  <div class="wordmark-row">
+    <div class="wordmark-line"></div>
+    <div class="wordmark-text">Portfolio</div>
+  </div>
+  <div class="page-nav">
+    <span>01 / 05</span>
+    <span class="next">다음 →</span>
+  </div>
+</section>
+
+<script>
+  // 총 경력 자동 계산 (시작: 2024년 2월)
+  (function() {
+    const start = new Date(2024, 1, 1);
+    const now = new Date();
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth();
+    if (months < 0) { years--; months += 12; }
+    const text = '경력 ' + (years > 0 ? years + '년 ' : '') + months + '개월';
+    document.getElementById('career-duration').textContent = text;
+  })();
+</script>
 </body>
 </html>
