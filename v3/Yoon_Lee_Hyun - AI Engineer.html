@@ -211,10 +211,10 @@
       width: calc(100% - 48px);
       max-height: 70vh;
       overflow-y: auto;
-      transform: scale(0.94) translateY(6px);
-      transition: transform 0.25s ease;
+      transform: scale(0.04);
+      transition: transform 0.38s cubic-bezier(0.22, 1, 0.36, 1);
     }
-    .modal-overlay.open .modal-card { transform: scale(1) translateY(0); }
+    .modal-overlay.open .modal-card { transform: scale(1); }
     .modal-head { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 4px; }
     .modal-co { font-size: 16px; font-weight: 500; color: var(--txt1); }
     .modal-close {
@@ -415,18 +415,23 @@
       stack:'Python · Diffusion Model · LoRA' }
   ];
   const careerModal = document.getElementById('career-modal');
-  function openCareerModal(idx) {
+  const careerModalCard = careerModal.querySelector('.modal-card');
+  function openCareerModal(idx, clickX, clickY) {
     const d = careerDetails[idx];
     document.getElementById('modal-co').textContent = d.co;
     document.getElementById('modal-meta').textContent = d.industry ? (d.period + ' · ' + d.industry) : d.period;
     document.getElementById('modal-desc').innerHTML = d.desc.map(function(t){ return '<div>' + t + '</div>'; }).join('');
     document.getElementById('modal-stack').textContent = d.stack;
+    const rect = careerModalCard.getBoundingClientRect();
+    const originX = clickX - rect.left;
+    const originY = clickY - rect.top;
+    careerModalCard.style.transformOrigin = originX + 'px ' + originY + 'px';
     careerModal.classList.add('open');
   }
   function closeCareerModal() { careerModal.classList.remove('open'); }
   document.querySelectorAll('.career-item').forEach(function(item) {
-    item.addEventListener('click', function() {
-      openCareerModal(parseInt(item.getAttribute('data-idx'), 10));
+    item.addEventListener('click', function(e) {
+      openCareerModal(parseInt(item.getAttribute('data-idx'), 10), e.clientX, e.clientY);
     });
   });
   document.getElementById('modal-close').addEventListener('click', closeCareerModal);
