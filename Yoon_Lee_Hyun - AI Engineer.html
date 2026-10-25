@@ -308,13 +308,13 @@
       border-top:1px solid var(--border);
       text-align:center;
     }
-    .ft-name {
-      font-family:'Space Grotesk',sans-serif;
-      font-size:22px; font-weight:700; color:var(--txt1); margin-bottom:6px;
-    }
-    .ft-role { font-size:14px; color:var(--txt3); margin-bottom:28px; }
-    .ft-stack { font-size:12px; color:var(--txt3); }
-    .ft-stack span { color:var(--p); margin:0 4px; }
+    .ft-id { font-family:'Space Grotesk',sans-serif; font-size:16px; margin-bottom:10px; }
+    .ft-name { font-weight:600; color:var(--txt1); }
+    .ft-sep { color:var(--txt3); margin:0 10px; }
+    .ft-title { font-weight:400; color:var(--txt2); }
+    .ft-mail { font-size:14px; margin-bottom:10px; }
+    .ft-mail a { color:var(--p); text-decoration:none; }
+    .ft-note { font-size:12px; color:var(--txt3); }
 
     /* ─── FADE-IN ─── */
     .fade { opacity:0; transform:translateY(18px); transition:opacity 0.6s ease, transform 0.6s ease; }
@@ -386,7 +386,7 @@
           </div>
           <div class="info-row">
             <span class="info-k">총 경력</span>
-            <span class="info-v" id="career-duration">2년 4개월 (2024.02 ~)</span>
+            <span class="info-v" id="career-duration">2년 4개월</span>
           </div>
           <div class="info-row">
             <span class="info-k">전문 분야</span>
@@ -632,14 +632,9 @@
 
 <!-- FOOTER -->
 <footer>
-  <div class="ft-name">윤이현 · Yoon I Hyeon</div>
-  <div class="ft-role">AI Engineer · LLM Agent · Multi-Agent System</div>
-  <div class="ft-stack">
-    <span>Python</span>·<span>LangGraph</span>·<span>FastAPI</span>·<span>MCP</span>·<span>Vector DB</span>
-  </div>
-  <div style="margin-top:16px;font-size:13px;color:var(--txt2);">
-    <a href="mailto:y2line97@gmail.com" style="color:var(--p);text-decoration:none;">y2line97@gmail.com</a>
-  </div>
+  <div class="ft-id"><span class="ft-name">Yoon I Hyeon</span><span class="ft-sep">|</span><span class="ft-title">AI Engineer</span></div>
+  <div class="ft-mail"><a href="mailto:y2line97@gmail.com">y2line97@gmail.com</a></div>
+  <div class="ft-note">Available for new opportunities</div>
 </footer>
 
 
@@ -691,7 +686,7 @@
     let years = now.getFullYear() - start.getFullYear();
     let months = now.getMonth() - start.getMonth();
     if (months < 0) { years--; months += 12; }
-    const text = (years > 0 ? years + '년 ' : '') + months + '개월 (2024.02 ~)';
+    const text = (years > 0 ? years + '년 ' : '') + months + '개월';
     document.getElementById('career-duration').textContent = text;
   })();
 </script>
